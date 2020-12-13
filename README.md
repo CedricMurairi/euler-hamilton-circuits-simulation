@@ -5,3 +5,6 @@ To run this project on your PC, you should have [Processing](https://processing.
 - Clone the repository to your local computer
 - CD into the cloned repository and open with Processing or
 - Open the folder you cloned into from Processing environment using your Finder or File Management Syst
+
+## Contribution
+To be updated soon
