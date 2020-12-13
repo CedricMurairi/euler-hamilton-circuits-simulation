@@ -1,7 +1,7 @@
 import random
 from components import Vertex, Graph
 
-RAD = 5
+RAD = 10
 graph = None
 verteces = []
 
@@ -24,6 +24,16 @@ def draw():
         # vert.move()
     graph.testEulerian()
     graph.testHamilton()
+    
+    # font = loadFont("Monospaced.bold-48")
+    # background(0)
+    # textFont(font)
+    # text("word", 12, 60)
+    
+    # font = loadFont("Monospaced.bold-48.vlw")
+    # textFont(font, 32)
+    # fill(255)
+    # text("word", 10, 50)
     
     noLoop()
 

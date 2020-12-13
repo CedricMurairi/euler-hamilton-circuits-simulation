@@ -2,6 +2,9 @@ import random
    
 # This class represents a undirected graph using adjacency list representation
 
+symbs = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n']
+p_symb = []
+
 class Graph: 
    
     def __init__(self, vertices):
@@ -12,11 +15,11 @@ class Graph:
     # function to add an edges to graph 
     def addEdge(self):
         for _ in range(self.V):
-            self.graph.append(Vertex(random.uniform(0, width), random.uniform(0, height), 10))
+            self.graph.append(Vertex(random.uniform(0, width), random.uniform(0, height), 8))
         for vert in self.graph:
-            for _ in range(random.randint(0, 2)):
-                if len(vert.others) > 2:
-                    continue
+            for _ in range(random.randint(1, 2)):
+                if len(vert.others) == 2:
+                    break
                 vert.others.append(self.get_random_v(vert))
                 
     def get_random_v(self, vert):
@@ -84,7 +87,9 @@ class Graph:
   
   
     # Function to run test cases 
-    def testEulerian(self): 
+    def testEulerian(self):
+        for vert in self.graph:
+            print('{} connects to {}'.format(vert.sym.upper(), [other.sym.upper() for other in vert.others]))
         res = self.isEulerian() 
         if res == 0: 
             print "Graph is not Eulerian"
@@ -107,10 +112,23 @@ class Vertex:
         self.x = x
         self.y = y
         self.rad = rad
+        self.sym = self.get_sym()
         self.others = []
         self.linked = []
+    
+    def get_sym(self):
+        global symbs
+        sym = random.choice(symbs)
+        if sym in p_symb:
+            return self.get_sym()
+        p_symb.append(sym)
+        return sym
         
     def show(self):
+        font = loadFont("Monospaced.bold-48.vlw")
+        textFont(font, 10)
+        fill(0)
+        text(self.sym, self.x + 1, self.y + 1)
         fill(0)
         circle(self.x, self.y, self.rad)
         
@@ -121,14 +139,3 @@ class Vertex:
                 line(self.x, self.y, vert.x, vert.y)
                 self.linked.append(vert)
                 vert.linked.append(self)
-        
-    def move(self):
-        self.x += random.uniform(-0.5, 0.5)
-        self.y += random.uniform(-0.5, 0.5)
-        
-        if dist(self.x, self.y, 0, self.y) < self.rad or dist(self.x, self.y, self.x, 0) < self.rad:
-            self.x += 1
-            self.y += 1
-        elif dist(self.x, self.y, width, self.y) < self.rad or dist(self.x, self.y, self.x, height) < self.rad:
-            self.x -= 1
-            self.y -= 1
